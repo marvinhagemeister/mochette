@@ -1,0 +1,9 @@
+{
+  "name": "mochette",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Marvin Hagemeister <hello@marvinh.dev>",
+  "license": "MIT"
+}
