@@ -3,6 +3,7 @@ import * as mri from "mri";
 import * as k from "kleur";
 import * as path from "path";
 import * as fs from "fs";
+import * as mkdirp from "mkdirp";
 import { execSync } from "child_process";
 const pkg = require("../package.json");
 
@@ -36,7 +37,7 @@ Usage: ${pkg.name} [options] <...glob paths>
   `);
 }
 
-export function exec(args: mri.Argv) {
+export async function exec(args: mri.Argv) {
 	if (args.v) {
 		console.log(pkg.version);
 		return;
@@ -51,27 +52,39 @@ export function exec(args: mri.Argv) {
 		.map(x => `-r ${x}`)
 		.join(" ");
 
-	const setup = path.relative(process.cwd(), path.join(__dirname, "setup.ts"));
+	const setup = require.resolve("./setup");
 
 	// Extend tsconfig if necessary
+	const root = path.join(process.cwd(), "node_modules", ".config");
+	await new Promise((resolve, reject) => {
+		mkdirp(root, err => (err ? reject(err) : resolve()));
+	});
+
 	const tsConfig = require(path.join(__dirname, "..", "tsconfig.test"));
 	if (args.config) {
-		const tsConfigUser = args.config;
-		const userConfigPath = path.join(process.cwd(), tsConfigUser);
-		tsConfig.extends = "./" + path.relative(__dirname, userConfigPath);
+		const userConfigPath = path.join(process.cwd(), args.config);
+		tsConfig.extends = "./" + path.relative(root, userConfigPath);
 		tsConfig.includes = require(userConfigPath).includes;
 	}
 	tsConfig.compilerOptions.module = "commonjs";
 	if (!tsConfig.includes) tsConfig.includes = [];
 	tsConfig.includes.push(
-		path.relative(process.cwd(), path.join(__dirname, "typings", "global.d.ts"))
+		path.relative(root, path.join(__dirname, "typings", "global.d.ts"))
 	);
 
-	fs.writeFileSync("./tsconfig.tmp.json", JSON.stringify(tsConfig));
+	fs.writeFileSync(
+		path.join(root, "tsconfig.tmp.json"),
+		JSON.stringify(tsConfig)
+	);
+
+	const configPath = path.relative(
+		process.cwd(),
+		path.join(root, "tsconfig.tmp.json")
+	);
 
 	const command = `./node_modules/.bin/cross-env \
         TS_NODE_FILES=true \
-        TS_NODE_PROJECT=tsconfig.tmp.json \
+        TS_NODE_PROJECT=${configPath} \
       ./node_modules/.bin/_mocha \
         -r ts-node/register \
 				-r ${setup} \

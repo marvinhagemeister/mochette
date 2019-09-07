@@ -1,1 +1,0 @@
-{"compilerOptions":{"module":"commonjs","typeRoots":["./node_modules/@types","./typings"]},"includes":["src/typings/global.d.ts"]}
