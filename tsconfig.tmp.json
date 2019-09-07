@@ -1,1 +1,1 @@
-{"compilerOptions":{"module":"commonjs","typeRoots":["./node_modules/@types","./typings"]},"extends":"./tsconfig.json","includes":["./typings/"]}
+{"compilerOptions":{"module":"commonjs","typeRoots":["./node_modules/@types","./typings"]},"includes":["src/typings/global.d.ts"]}

@@ -1,9 +1,10 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "typeRoots": ["./node_modules/@types", "./typings"]
-  },
-  "includes": ["./typings/"]
+	"compilerOptions": {
+		"strict": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"outDir": "dist/",
+		"typeRoots": ["./node_modules/@types", "./typings"]
+	},
+	"includes": ["./typings/"]
 }

@@ -88,3 +88,4 @@ typings/
 .dynamodb/
 
 .tsconfig.tmp.json
+dist/

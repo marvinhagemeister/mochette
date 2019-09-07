@@ -1,29 +1,43 @@
 {
-  "name": "mochette",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "cross-env TS_NODE_PROJECT=tsconfig.tmp.json mocha -r ts-node/register -r setup.js --watch-extensions=ts,tsx,js fixtures/*.ts"
-  },
-  "author": "Marvin Hagemeister <hello@marvinh.dev>",
-  "license": "MIT",
-  "dependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.7",
-    "@types/sinon": "^7.0.13",
-    "chai": "^4.2.0",
-    "chai-sinon": "^2.8.1",
-    "cross-env": "^5.2.0",
-    "mocha": "^6.2.0",
-    "sinon": "^7.3.2",
-    "ts-node": "^8.3.0"
-  },
-  "devDependencies": {
-    "@types/node": "^12.6.8",
-    "typescript": "^3.5.3"
-  },
-  "peerDependencies": {
-    "typescript": "3.x"
-  }
+	"name": "mochette",
+	"version": "0.0.1",
+	"description": "Opinionated wrapper around mocha",
+	"main": "",
+	"bin": {
+		"mochette": "dist/cli.ts"
+	},
+	"scripts": {
+		"build": "rimraf dist/ && tsc"
+	},
+	"author": "Marvin Hagemeister <hello@marvinh.dev>",
+	"license": "MIT",
+	"files": [
+		"dist/",
+		"typings",
+		"tsconfig.test.json"
+	],
+	"dependencies": {
+		"@types/chai": "^4.1.7",
+		"@types/jsdom": "^12.2.4",
+		"@types/mocha": "^5.2.7",
+		"@types/sinon": "^7.0.13",
+		"chai": "^4.2.0",
+		"cross-env": "^5.2.0",
+		"ignore-styles": "^5.0.1",
+		"jsdom": "^15.1.1",
+		"kleur": "^3.0.3",
+		"mocha": "^6.2.0",
+		"mri": "^1.1.4",
+		"sinon": "^7.3.2",
+		"ts-node": "^8.3.0"
+	},
+	"devDependencies": {
+		"@types/mri": "^1.1.0",
+		"@types/node": "^12.6.8",
+		"rimraf": "^3.0.0",
+		"typescript": "^3.5.3"
+	},
+	"peerDependencies": {
+		"typescript": "3.x"
+	}
 }
