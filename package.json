@@ -1,6 +1,6 @@
 {
 	"name": "mochette",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Opinionated wrapper around mocha",
 	"main": "",
 	"bin": {
