@@ -4,7 +4,7 @@
 	"description": "Opinionated wrapper around mocha",
 	"main": "",
 	"bin": {
-		"mochette": "dist/cli.ts"
+		"mochette": "dist/cli.js"
 	},
 	"scripts": {
 		"build": "rimraf dist/ && tsc",
