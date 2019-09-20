@@ -92,7 +92,7 @@ export async function exec(args: mri.Argv) {
         ${requires} \
 				--watch-extensions=ts,tsx \
 				${args.watch ? "--watch" : ""} \
-        ${args._.join(" ")}`
+        ${args._.map(x => `"${x}"`).join(" ")}`
 		.replace(/[\n\r]/g, " ")
 		.replace(/\s+/g, " ");
 
