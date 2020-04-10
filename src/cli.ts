@@ -14,10 +14,10 @@ export function parseArgs(args: string[]) {
 			h: "help",
 			c: "config",
 			v: "version",
-			r: "require"
+			r: "require",
 		},
 		boolean: ["help", "watch", "version"],
-		string: ["require", "config"]
+		string: ["require", "config"],
 	});
 }
 
@@ -29,7 +29,7 @@ Usage: ${pkg.name} [options] <...glob paths>
     ${k.bold("-c, --config")}   Path to tsconfig.json
     ${k.bold("-w, --watch")}    Restart test run when a file changes
     ${k.bold(
-			"-r, --require"
+			"-r, --require",
 		)}  Require files before running tests (separated by comma)
     ${k.bold("-v, --version")}  Show version number
     ${k.bold("-h, --help")}     Show help
@@ -56,9 +56,7 @@ export async function exec(args: mri.Argv) {
 
 	// Extend tsconfig if necessary
 	const root = path.join(process.cwd(), "node_modules", ".config");
-	await new Promise((resolve, reject) => {
-		mkdirp(root, err => (err ? reject(err) : resolve()));
-	});
+	await mkdirp(root);
 
 	const tsConfig = require(path.join(__dirname, "..", "tsconfig.test"));
 	if (args.config) {
@@ -69,17 +67,17 @@ export async function exec(args: mri.Argv) {
 	tsConfig.compilerOptions.module = "commonjs";
 	if (!tsConfig.includes) tsConfig.includes = [];
 	tsConfig.includes.push(
-		path.relative(root, path.join(__dirname, "typings", "global.d.ts"))
+		path.relative(root, path.join(__dirname, "typings", "global.d.ts")),
 	);
 
 	fs.writeFileSync(
 		path.join(root, "tsconfig.tmp.json"),
-		JSON.stringify(tsConfig)
+		JSON.stringify(tsConfig),
 	);
 
 	const configPath = path.relative(
 		process.cwd(),
-		path.join(root, "tsconfig.tmp.json")
+		path.join(root, "tsconfig.tmp.json"),
 	);
 
 	const command = `./node_modules/.bin/cross-env \
@@ -90,7 +88,7 @@ export async function exec(args: mri.Argv) {
 				-r ${setup} \
 				-r ignore-styles \
         ${requires} \
-				--watch-extensions=ts,tsx \
+				--extensions=ts,tsx \
 				${args.watch ? "--watch" : ""} \
         ${args._.map(x => `"${x}"`).join(" ")}`
 		.replace(/[\n\r]/g, " ")
