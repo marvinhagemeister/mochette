@@ -88,7 +88,7 @@ export async function exec(args: mri.Argv) {
 				-r ${setup} \
 				-r ignore-styles \
         ${requires} \
-				--extensions=ts,tsx \
+				--extension=ts,tsx \
 				${args.watch ? "--watch" : ""} \
         ${args._.map(x => `"${x}"`).join(" ")}`
 		.replace(/[\n\r]/g, " ")
