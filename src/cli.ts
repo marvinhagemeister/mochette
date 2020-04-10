@@ -80,10 +80,10 @@ export async function exec(args: mri.Argv) {
 		path.join(root, "tsconfig.tmp.json"),
 	);
 
-	const command = `./node_modules/.bin/cross-env \
+	const command = `npx cross-env \
         TS_NODE_FILES=true \
         TS_NODE_PROJECT=${configPath} \
-      ./node_modules/.bin/_mocha \
+      npx _mocha \
         -r ts-node/register \
 				-r ${setup} \
 				-r ignore-styles \
