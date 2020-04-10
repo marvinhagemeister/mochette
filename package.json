@@ -8,6 +8,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist/ && tsc",
+		"test": "ts-node src/cli.ts fixtures/*.ts",
 		"prepublishOnly": "npm run build"
 	},
 	"author": "Marvin Hagemeister <hello@marvinh.dev>",
