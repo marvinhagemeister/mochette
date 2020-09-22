@@ -20,6 +20,6 @@ if (idx > -1) {
 }
 
 const command =
-	"./node_modules/.bin/cross-env TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.tmp.json ./node_modules/.bin/_mocha -r ts-node/register -r setup.js --watch-extensions=ts,tsx,js " +
+	"./node_modules/.bin/cross-env TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.tmp.json ./node_modules/.bin/_mocha -r ts-node/register -r setup.js --extensions=ts,tsx,js --watch-files src " +
 	args.join(" ");
 execSync(command, { stdio: "inherit" });
